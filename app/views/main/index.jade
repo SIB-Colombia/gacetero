@@ -1,0 +1,40 @@
+extends ../../layouts/layout
+
+block content
+	.container-fluid
+		.row-fluid
+			section#processing-request.hide-element
+				.processing-request-container
+					.content.loader
+			section#information.occult-element
+				.information-container
+					.content
+						h3 No se encontraron registros en la ubicación buscada.
+			section#map-filter-area
+				.tabbable
+					ul.nav.nav-pills
+						#actual-search-stats-data
+							span.title Registros: 
+								span.subtitle
+									span(data-bind="text: totalGeoOccurrences")
+									|  en 
+									span(data-bind="text: totalCountries")
+									|  países, 
+									span(data-bind="text: totalDepartments")
+									|  departamentos, 
+									span(data-bind="text: totalCounties")
+									|  municipios, 
+									span(data-bind="text: totalLocalities")
+									|  localidades y 
+									span(data-bind="text: totalParamos")
+									|  páramos
+					.tab-content
+						.tab-pane.active(id='tab1')
+							#pane
+								#mapa
+							#filterZone.open
+								include filterWindow
+								section#notes.occult-element
+									.information-container
+										.content
+											h3 * Desplegando primeros 10000 registros más significativos.

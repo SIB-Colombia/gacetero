@@ -1,0 +1,35 @@
+block filterWindow
+	.filterbox
+		//#top-filterZone
+			.title-window.gradient
+				h4 Filtro de búsqueda
+			.minimize-maximize-button
+				span(class='caret')
+				
+		//- Código para versión multibúsqueda
+			#filtersContainer
+			#searchConditions(data-bind="visible: searchConditions().length > 0")
+				#condition(data-bind="foreach: searchConditions()")
+					.searchBox.searchBox-shadow
+						input(data-bind="value: searchText, uniqueName: true")
+					.searchButtons(data-bind="visible: $index() < $parent.searchConditions().length-1", style="display:none;")
+						button.removeSearchElementButon(data-bind="click: function () { $parent.removeSearchCondition($parent, this); }")
+				.searchButtons
+					button.searchButon
+					button.addSearchElementButon(data-bind="click: addSearchCondition")
+		#occurrenceDetail
+			#occurrenceDetailContainer
+				tree
+				table#listsg11
+				.pagersg11
+				//- script(src="subgrid_grid.js" type="text/javascript")
+
+		#filtersContainer
+			#searchConditions
+				.searchBox.searchBox-shadow
+					input#searchBox(data-bind="jqAuto: {value: searchCondition, source: searchOptions, inputProp: 'location', labelProp: 'location_highlight', valueProp: 'location', template: 'rowTmpl', options: {autoFocus: false, delay: 50}}", placeholder="Ingrese texto de localidad a consultar o latitud, longitud separadas por coma.")
+					//input(data-bind="value: searchCondition, event: { change: searchOccurrences }", placeholder="Ingrese texto de localidad a consultar o latitud, longitud separadas por coma.")
+					script(id="rowTmpl" type="text/html")
+						<span data-bind="html: location_highlight"></span>
+				.searchButtons
+					button#startSearch.searchButon(data-bind="click: searchOccurrences")

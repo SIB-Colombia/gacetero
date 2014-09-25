@@ -1,0 +1,71 @@
+/* Leaflet control style */
+.leaflet-control-layers-expanded
+	height 400px
+	overflow-y scroll
+	-webkit-overflow-scrolling touch
+	label
+		padding 3px
+		border-radius(5px)
+		&:nth-child(2n)
+			background-color rgba(168,219,247, 0.7)
+.leaflet-top+.leaflet-right
+	margin-top 50px
+.leaflet-control-zoom
+	a
+		width 26px !important
+		height 26px !important
+.leaflet-draw
+	margin-left 13px !important
+.leaflet-bar
+	a
+		background-color #fff
+		border-bottom 1px solid #ccc
+		width 26px
+		height 26px
+		line-height 26px
+		display block
+		text-align center
+		text-decoration none
+		color black
+.leaflet-container .leaflet-control-mouseposition
+	background-color rgba(255, 255, 255, 0.7)
+	box-shadow 0 0 5px #bbb
+	padding 0 5px
+	margin 0
+	color #333
+	font 11px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif
+.leaflet-container .leaflet-left .leaflet-bar
+	margin-left 13px
+	margin-top 35px
+.leaflet-container .leaflet-left .leaflet-control-zoomslider
+	margin-top 10px
+.leaflet-bar
+	box-shadow 0 0 8px rgba(0,0,0,0.4)
+	border 1px solid #888
+	border-radius 5px
+.leaflet-right 
+	.leaflet-control:last-child
+	.leaflet-control:first-child
+		a
+			background-image url("/images/standard/ico_capas.png")
+			background-size initial
+.leaflet-control-layers-toggle
+	width 65px
+	height 65px
+.leaflet-control-layers
+	box-shadow 0 2px 14px rgba(0,0,0,0.3)
+	background #f8f8f9
+.leaflet-control-layers-list
+	padding 2px 0px 2px 4px
+.leaflet-control-layers-list
+	input
+		margin-top -4px
+.leaflet-control-layers-list span
+	margin 2px 0 0 5px
+	font-weight 700 !important
+/* End leaflet control style */
+
+/* Leaflet loading control */
+.leaflet-control-loading
+	background url("/images/loading/loading7.gif")
+/* End leaflet loading control */
