@@ -1,1 +1,1 @@
-Sib Colombia dataportal map explore application.
+SIB Colombia gacetero.
