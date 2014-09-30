@@ -155,7 +155,7 @@ exports.getGeneralLocationData = function() {
 	return mySearchCall;
 };
 
-exports.getSimilarLocationData = function(locationName) {
+exports.getSimilarLocationDataWithoutShingles = function(locationName) {
 	qryObj = {
 		"size": 0,
 		"_source": [
@@ -213,6 +213,107 @@ exports.getSimilarLocationData = function(locationName) {
 									}
 								}
 							],
+							"_source": {
+								"include": [
+									"country_name",
+									"department_name",
+									"county_name",
+									"locality",
+									"paramo_name",
+									"location"
+								]
+							},
+							"highlight": {
+								"fields": {
+									"country_name.spanish": {},
+									"department_name.spanish": {},
+									"county_name.spanish": {},
+									"locality.spanish": {},
+									"paramo_name.spanish": {}
+								}
+							},
+							"size": 15
+						}
+					}
+				}
+			}
+		}
+	};
+
+	mySearchCall = elasticSearchClient.search('sibexplorer', 'occurrences', qryObj);
+	return mySearchCall;
+};
+
+exports.getSimilarLocationDataWithShingles = function(locationName) {
+	qryObj = {
+		"size": 0,
+		"_source": [
+			"department_name",
+			"paramo_name",
+			"county_name",
+			"country_name",
+			"locality"
+		],
+		"query": {
+			"filtered": {
+				"query": {
+					"bool": {
+						"must": {
+							"query_string": {
+								"query": locationName,
+								"fields": [
+									"country_name.spanish",
+									"department_name.spanish",
+									"county_name.spanish",
+									"locality.spanish",
+									"paramo_name.spanish"
+								],
+								"use_dis_max": true,
+								"default_operator": "AND"
+							}
+						},
+						"should": {
+							"multi_match": {
+								"query": locationName,
+								"type": "most_fields",
+								"operator": "and",
+								"boost": 3,
+								"fields": [
+									"country_name.shingles",
+									"department_name.shingles",
+									"county_name.shingles",
+									"locality.shingles",
+									"paramo_name.shingles"
+								]
+							}
+						}
+					}
+				},
+				"filter": {
+					"and": [
+						{
+							"exists": {
+								"field": "cell_id"
+							}
+						},
+						{
+							"term": {
+								"geospatial_issue": 0
+							}
+						}
+					]
+				}
+			}
+		},
+		"aggs": {
+			"biggest_countries": {
+				"terms": {
+					"field": "country_name.exactWords",
+					"size": 10
+				},
+				"aggs": {
+					"top_country_hits": {
+						"top_hits": {
 							"_source": {
 								"include": [
 									"country_name",
@@ -332,6 +433,7 @@ exports.getSimilarLocationDataByCoordinates = function(latitude, longitude) {
 };
 
 exports.getAllOccurrences = function(locationName) {
+	console.log(locationName);
 	qryObj = {
 		"size": 10000,
 		"_source": [
@@ -346,7 +448,7 @@ exports.getAllOccurrences = function(locationName) {
 			"filtered": {
 				"query": {
 					"query_string": {
-						"query": locationName,
+						"query": locationName.toString(),
 						"fields": [
 							"country_name.spanish^15",
 							"department_name.spanish^10",

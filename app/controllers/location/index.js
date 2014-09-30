@@ -30,7 +30,7 @@ exports.loadInitialData = function(req, res) {
 };
 
 exports.suggestLocation = function(req, res) {
-	occurrences = occurrencesES.getSimilarLocationData(req.params._name);
+	occurrences = occurrencesES.getSimilarLocationDataWithShingles(req.params._name);
 	occurrences.exec(function(err, data) {
 		data = JSON.parse(data);
 		if(data.aggregations && data.aggregations.biggest_countries.buckets[0]) {

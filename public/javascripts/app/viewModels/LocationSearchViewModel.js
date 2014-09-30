@@ -120,6 +120,7 @@ define(["jquery", "knockout", "underscore", "app/models/baseViewModel", "app/map
 			searchText = searchText.toLowerCase().replace(/páramo:/g,'paramo_name.spanish:');
 			searchText = searchText.replace(/ y /g,' AND ');
 			searchText = searchText.replace(/ o /g,' OR ');
+			searchText = searchText.replace(/\//g,' '); // Replace slash to avoid URL error
 			$.getJSON("/api/location/alloccurrences/"+searchText, function(allData) {
 				if(allData.hits.total > 0) {
 					$.each(allData.hits.hits, function(i, occurrence) {
