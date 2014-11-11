@@ -14,7 +14,9 @@ module.exports = function(parent) {
   parent.use(compress());
   parent.use(favicon(__dirname + '/../../public/images/sib.ico'));
   parent.use(morgan('dev'));
-	parent.use(bodyParser());
+	parent.use(bodyParser.urlencoded({
+  	extended: true
+	}));
 	parent.use(methodOverride());
 	parent.use(require('stylus').middleware(__dirname + '/../../public'));
 

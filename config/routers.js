@@ -35,31 +35,31 @@ module.exports = function(parent, options) {
 			switch (key) {
 				case 'index':
 					method = 'get';
-					path = '/';
+					path = '/gacetero';
 					break;
 				case 'getAllOccurrences':
 					method = 'get';
-					path = '/api/' + name + '/alloccurrences/:' + '_name';
+					path = '/gacetero/api/' + name + '/alloccurrences/:' + '_name';
 					break;
 				case 'loadInitialData':
 					method = 'get';
-					path = '/api/' + name + '/resumedata';
+					path = '/gacetero/api/' + name + '/resumedata';
 					break;
 				case 'getLocationTreeData':
 					method = 'get';
-					path = '/api/' + name + '/locationtree';
+					path = '/gacetero/api/' + name + '/locationtree';
 					break;
 				case 'getLocationParamoTreeData':
 					method = 'get';
-					path = '/api/' + name + '/locationparamotree';
+					path = '/gacetero/api/' + name + '/locationparamotree';
 					break;
 				case 'suggestLocation':
 					method = 'get';
-					path = '/api/' + name + '/similar/:' + '_name';
+					path = '/gacetero/api/' + name + '/similar/:' + '_name';
 					break;
 				case 'suggestLocationByCoordinates':
 					method = 'get';
-					path = '/api/' + name + '/similar/:' + '_latitude' + '/:' + '_longitude';
+					path = '/gacetero/api/' + name + '/similar/:' + '_latitude' + '/:' + '_longitude';
 					break;
 				default:
 					throw new Error('unrecognized route: ' + name + '.' + key);

@@ -24,24 +24,24 @@
     "sib-gazetero"
   ],
   "dependencies": {
-    "express": "4.4.1",
-    "compression": "1.0.2",
-    "serve-favicon": "2.0.0",
-    "morgan": "1.1.1",
-    "body-parser": "1.3.0",
-    "method-override": "2.0.1",
-    "errorhandler": "1.0.1",
-    "serve-static": "1.2.1",
+    "express": "4.10.1",
+    "compression": "1.2.0",
+    "serve-favicon": "2.1.6",
+    "morgan": "1.5.0",
+    "body-parser": "1.9.2",
+    "method-override": "2.3.0",
+    "errorhandler": "1.2.2",
+    "serve-static": "1.7.1",
     "async": "0.9.0",
-    "stylus": "0.46.0",
-    "jade": "1.3.1",
-    "jade-amd": "0.2.1",
-    "request": "2.36.0",
+    "stylus": "0.49.3",
+    "jade": "1.7.0",
+    "jade-amd": "0.2.2",
+    "request": "2.47.0",
     "q": "1.0.1",
     "elasticsearchclient": "0.5.3",
-    "moment": "2.6.0",
-    "winston": "0.7.3",
-    "underscore": "1.6.0"
+    "moment": "2.8.3",
+    "winston": "0.8.3",
+    "underscore": "1.7.0"
   },
   "devDependencies": {
     "supertest": "latest",
@@ -51,6 +51,6 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=0.10.30"
+    "node": ">=0.10.33"
   }
 }

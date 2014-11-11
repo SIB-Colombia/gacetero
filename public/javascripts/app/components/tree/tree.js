@@ -9,7 +9,7 @@ define(["jquery", "underscore", "knockout", "templates/tree.js", "jstree"], func
 		var self = this;
 		self.searchCondition = ko.observable("").syncWith("searchCondition");
 
-		$.getJSON("/api/location/locationtree", function(allData) {
+		$.getJSON("/gacetero/api/location/locationtree", function(allData) {
 			var initialData = {
 				nodes: []
 			};
@@ -82,7 +82,7 @@ define(["jquery", "underscore", "knockout", "templates/tree.js", "jstree"], func
 				});
 				countCountries = 0;
 				countParamos = 0;
-				$.getJSON("/api/location/locationparamotree", function(allData) {
+				$.getJSON("/gacetero/api/location/locationparamotree", function(allData) {
 					if(allData.aggregations.biggest_countries.buckets.length > 0) {
 						_.each(allData.aggregations.biggest_countries.buckets, function(dataCountry) {
 							if(dataCountry.biggest_paramos.buckets.length > 0) {

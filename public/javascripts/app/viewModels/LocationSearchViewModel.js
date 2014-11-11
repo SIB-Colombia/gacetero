@@ -44,7 +44,7 @@ define(["jquery", "knockout", "underscore", "app/models/baseViewModel", "app/map
 		},
 		loadInitialData: function() {
 			var self = this;
-			$.getJSON("/api/location/resumedata", function(allData) {
+			$.getJSON("/gacetero/api/location/resumedata", function(allData) {
 				self.totalGeoOccurrences(allData.hits.total);
 				self.totalCountries(allData.aggregations.country_count.value);
 				self.totalDepartments(allData.aggregations.department_count.value);
@@ -61,13 +61,13 @@ define(["jquery", "knockout", "underscore", "app/models/baseViewModel", "app/map
 			if(!regExp.test(searchTerm)) {
 				$.ajax({
 					dataType: "json",
-					url: "/api/location/similar/"+searchTerm
+					url: "/gacetero/api/location/similar/"+searchTerm
 				}).done(callback);
 			} else {
 				var location = searchTerm.match(/-{0,1}\d+.{0,1}\d*/g);
 				$.ajax({
 					dataType: "json",
-					url: "/api/location/similar/"+location[0]+"/"+location[1]
+					url: "/gacetero/api/location/similar/"+location[0]+"/"+location[1]
 				}).done(callback);
 			}
 		},
@@ -121,7 +121,7 @@ define(["jquery", "knockout", "underscore", "app/models/baseViewModel", "app/map
 			searchText = searchText.replace(/ y /g,' AND ');
 			searchText = searchText.replace(/ o /g,' OR ');
 			searchText = searchText.replace(/\//g,' '); // Replace slash to avoid URL error
-			$.getJSON("/api/location/alloccurrences/"+searchText, function(allData) {
+			$.getJSON("/gacetero/api/location/alloccurrences/"+searchText, function(allData) {
 				if(allData.hits.total > 0) {
 					$.each(allData.hits.hits, function(i, occurrence) {
 						var marker = new L.Marker([occurrence._source.location.lat, occurrence._source.location.lon], {icon: smallIcon, clickable: true, zIndexOffset: 1000, title: "Latitud: "+occurrence._source.location.lat+", Longitud: "+occurrence._source.location.lon});
