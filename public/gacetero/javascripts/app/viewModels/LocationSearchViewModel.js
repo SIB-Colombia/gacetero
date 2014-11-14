@@ -44,6 +44,7 @@ define(["jquery", "knockout", "underscore", "app/models/baseViewModel", "app/map
 		},
 		loadInitialData: function() {
 			var self = this;
+			self.hideMapAreaWithSpinner();
 			$.getJSON("/gacetero/api/location/resumedata", function(allData) {
 				self.totalGeoOccurrences(allData.hits.total);
 				self.totalCountries(allData.aggregations.country_count.value);
@@ -51,6 +52,7 @@ define(["jquery", "knockout", "underscore", "app/models/baseViewModel", "app/map
 				self.totalCounties(allData.aggregations.counties_count.value);
 				self.totalLocalities(allData.aggregations.localities_count.value);
 				self.totalParamos(allData.aggregations.paramos_count.value);
+				self.showMapAreaWithSpinner();
 			});
 			// Uncomment to enable multiple search conditions
 			//self.searchConditions.push(new SearchCondition({searchText: ""}));
