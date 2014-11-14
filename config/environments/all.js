@@ -12,7 +12,7 @@ module.exports = function(parent) {
 	parent.set('view engine', 'jade');
 	parent.set('jsonp callback', true );
   parent.use(compress());
-  parent.use(favicon(__dirname + '/../../public/images/sib.ico'));
+  parent.use(favicon(__dirname + '/../../public/gacetero/images/sib.ico'));
   parent.use(morgan('dev'));
 	parent.use(bodyParser.urlencoded({
   	extended: true
