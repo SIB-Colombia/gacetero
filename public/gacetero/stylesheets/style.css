@@ -949,6 +949,40 @@ fieldset {
   padding-left: 10px;
   padding-right: 10px;
 }
+#results {
+  display: none;
+  background-color: rgba(255,255,255,0.2);
+  position: absolute;
+  left: 0px;
+  top: 300px;
+  right: 60px;
+  border: 0px none;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.3);
+}
+#results #mostProbably {
+  background-color: rgba(138,81,35,0.8);
+  overflow-x: hidden;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 10px;
+}
+#results #mostProbably table.results {
+  width: 100%;
+}
+#results #mostProbably table.results td.head {
+  color: #eac600;
+  font-weight: bold;
+  padding-top: 10px;
+}
+#results #mostProbably table.results td {
+  padding-bottom: 3px;
+  color: #fff;
+  padding-left: 5px;
+  padding-right: 5px;
+}
 .ui-widget {
   font-size: inherit;
   font-family: inherit;

@@ -33,3 +33,30 @@ block filterWindow
 						<span data-bind="html: location_highlight"></span>
 				.searchButtons
 					button#startSearch.searchButon(data-bind="click: searchOccurrences")
+
+		#results
+			#mostProbably
+				table.results
+					tbody
+						tr
+							td.head País
+							td.head Departamento
+							td.head Municipio
+						tr
+							td
+								span(data-bind="text: principalCountry")
+							td
+								span(data-bind="text: principalDepartment")
+							td
+								span(data-bind="text: principalCounty")
+						tr
+							td.head Localidad
+							td.head Latitud
+							td.head Longitud
+						tr
+							td
+								span(data-bind="text: principalLocality")
+							td
+								span(data-bind="text: principalLatitude")
+							td
+								span(data-bind="text: principalLongitude")

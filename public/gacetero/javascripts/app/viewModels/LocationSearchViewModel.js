@@ -11,6 +11,14 @@ define(["jquery", "knockout", "underscore", "app/models/baseViewModel", "app/map
 		self.totalLocalities = 0;
 		self.totalParamos = 0;
 
+		// Most probably location
+		self.principalCountry = "";
+		self.principalDepartment = "";
+		self.principalCounty = "";
+		self.principalLocality = "";
+		self.principalLatitude = "";
+		self.principalLongitude = "";
+
 		self.totalSearchConditions = 0;
 
 		// Single search condition
@@ -136,6 +144,12 @@ define(["jquery", "knockout", "underscore", "app/models/baseViewModel", "app/map
 						principalLocation.bindPopup("<strong>Departamento: </strong>"+occurrence._source.department_name+"</br><strong>Municipio: </strong>"+occurrence._source.county_name+"</br><strong>Localidad: </strong>"+occurrence._source.locality+((occurrence._source.paramo_name !== null) ? "</br><strong>Páramo: </strong>"+occurrence._source.paramo_name : "")+"</br><strong>País: </strong>"+occurrence._source.country_name+"</br><strong>Latitud: </strong>"+occurrence._source.location.lat+"</br><strong>Longitud: </strong>"+occurrence._source.location.lon);
 						map.addLayer(principalLocation);
 						map.addLayer(markers);
+						self.principalCountry(occurrence._source.country_name);
+						self.principalDepartment(occurrence._source.department_name);
+						self.principalCounty(occurrence._source.county_name);
+						self.principalLocality(occurrence._source.locality);
+						self.principalLatitude(occurrence._source.location.lat);
+						self.principalLongitude(occurrence._source.location.lon);
 					}
 					if(markers._topClusterLevel._childCount == 10000 && allData.hits.total > 10000) {
 						$("#notes").fadeIn();	
@@ -151,6 +165,7 @@ define(["jquery", "knockout", "underscore", "app/models/baseViewModel", "app/map
 					$("#information").fadeIn().delay(3000).fadeOut();
 				}
 				self.showMapAreaWithSpinner();
+				$("#results").fadeIn();
 			});
 		},
 		removeSearchCondition: function(parent, selectedSearchCondition) {
