@@ -94,6 +94,7 @@ define(["jquery", "knockout", "underscore", "app/models/baseViewModel", "app/map
 			var self = this;
 			if(self.searchCondition() !== "") {
 				$("#notes").hide();
+				$("#ui-id-1").hide();
 				self.hideMapAreaWithSpinner();
 				self.loadOccurrencesMarkers();
 				//self.enableOccurrencesDetail();
@@ -152,7 +153,7 @@ define(["jquery", "knockout", "underscore", "app/models/baseViewModel", "app/map
 						self.principalLongitude(occurrence._source.location.lon);
 					}
 					if(markers._topClusterLevel._childCount == 10000 && allData.hits.total > 10000) {
-						$("#notes").fadeIn();	
+						$("#notes").fadeIn();
 					}
 					// Fill resume data about found occurrences
 					self.totalGeoOccurrences(allData.hits.total);
@@ -161,11 +162,12 @@ define(["jquery", "knockout", "underscore", "app/models/baseViewModel", "app/map
 					self.totalCounties(allData.aggregations.counties_count.value);
 					self.totalLocalities(allData.aggregations.localities_count.value);
 					self.totalParamos(allData.aggregations.paramos_count.value);
+					$("#results").fadeIn();
 				} else {
 					$("#information").fadeIn().delay(3000).fadeOut();
+					$("#results").fadeOut();
 				}
 				self.showMapAreaWithSpinner();
-				$("#results").fadeIn();
 			});
 		},
 		removeSearchCondition: function(parent, selectedSearchCondition) {
