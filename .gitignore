@@ -10,7 +10,7 @@ explorador.sublime-project
 explorador.sublime-workspace
 temp/
 logs/
-public/gcetero/bower_modules
+public/gacetero/bower_modules
 public/gacetero/components
 npm-debug.log
 
