@@ -12,6 +12,11 @@ exports.getLocationsTree = function() {
 							}
 						},
 						{
+							"missing": {
+								"field" : "deleted"
+							}
+						},
+						{
 							"term": {
 								"geospatial_issue": 0
 							}
@@ -70,6 +75,11 @@ exports.getLocationsParamosTree = function() {
 							}
 						},
 						{
+							"missing": {
+								"field" : "deleted"
+							}
+						},
+						{
 							"term": {
 								"geospatial_issue": 0
 							}
@@ -111,6 +121,11 @@ exports.getGeneralLocationData = function() {
 						{
 							"exists": {
 								"field": "cell_id"
+							}
+						},
+						{
+							"missing": {
+								"field" : "deleted"
 							}
 						},
 						{
@@ -186,6 +201,11 @@ exports.getSimilarLocationDataWithoutShingles = function(locationName) {
 						{
 							"exists": {
 								"field": "cell_id"
+							}
+						},
+						{
+							"missing": {
+								"field" : "deleted"
 							}
 						},
 						{
@@ -297,6 +317,11 @@ exports.getSimilarLocationDataWithShingles = function(locationName) {
 							}
 						},
 						{
+							"missing": {
+								"field" : "deleted"
+							}
+						},
+						{
 							"term": {
 								"geospatial_issue": 0
 							}
@@ -368,6 +393,11 @@ exports.getSimilarLocationDataByCoordinates = function(latitude, longitude) {
 							}
 						},
 						{
+							"missing": {
+								"field" : "deleted"
+							}
+						},
+						{
 							"term": {
 								"geospatial_issue": 0
 							}
@@ -435,8 +465,8 @@ exports.getSimilarLocationDataByCoordinates = function(latitude, longitude) {
 exports.getAllOccurrences = function(locationName) {
 	console.log(locationName);
 	qryObj = {
-		"size": 10000,
-		"_source": [
+		size: 10000,
+		_source: [
 			"location",
 			"department_name",
 			"paramo_name",
@@ -444,71 +474,76 @@ exports.getAllOccurrences = function(locationName) {
 			"country_name",
 			"locality"
 		],
-		"query": {
-			"filtered": {
-				"query": {
-					"query_string": {
-						"query": locationName.toString(),
-						"fields": [
+		query: {
+			filtered: {
+				query: {
+					query_string: {
+						query: locationName.toString(),
+						fields: [
 							"country_name.spanish^15",
 							"department_name.spanish^10",
 							"county_name.spanish^2",
 							"locality.spanish",
 							"paramo_name.spanish"
 						],
-						"use_dis_max": true,
-						"default_operator": "AND"
+						use_dis_max: true,
+						default_operator: "AND"
 					}
 				},
-				"filter": {
-					"and": [
+				filter: {
+					and: [
 						{
-							"exists": {
-								"field": "cell_id"
+							exists: {
+								field: "cell_id"
 							}
 						},
 						{
-							"term": {
-								"geospatial_issue": 0
+							missing: {
+								field : "deleted"
+							}
+						},
+						{
+							term: {
+								geospatial_issue: 0
 							}
 						}
 					]
 				}
 			}
 		},
-		"highlight": {
-			"fields": {
-				"country_name.spanish": {},
-				"department_name.spanish": {},
-				"county_name.spanish": {},
-				"locality.spanish": {},
-				"paramo_name.spanish": {}
+		highlight: {
+			fields: {
+				"country_name.spanish": {fragment_size : 1000},
+				"department_name.spanish": {fragment_size : 1000},
+				"county_name.spanish": {fragment_size : 1000},
+				"locality.spanish": {fragment_size : 1000},
+				"paramo_name.spanish": {fragment_size : 1000}
 			}
 		},
-		"aggs": {
-			"country_count": {
-				"cardinality": {
-					"field": "country_name.untouched"
+		aggs: {
+			country_count: {
+				cardinality: {
+					field: "country_name.untouched"
 				}
 			},
-			"department_count": {
-				"cardinality": {
-					"field": "department_name.untouched"
+			department_count: {
+				cardinality: {
+					field: "department_name.untouched"
 				}
 			},
-			"counties_count": {
-				"cardinality": {
-					"field": "county_name.untouched"
+			counties_count: {
+				cardinality: {
+					field: "county_name.untouched"
 				}
 			},
-			"localities_count": {
-				"cardinality": {
-					"field": "locality.untouched"
+			localities_count: {
+				cardinality: {
+					field: "locality.untouched"
 				}
 			},
-			"paramos_count": {
-				"cardinality": {
-					"field": "paramo_name.untouched"
+			paramos_count: {
+				cardinality: {
+					field: "paramo_name.untouched"
 				}
 			}
 		}

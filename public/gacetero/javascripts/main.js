@@ -13,7 +13,7 @@ requirejs.config({
     'underscore': '../bower_modules/underscore/underscore',
     'leaflet': '../bower_modules/leaflet/dist/leaflet',
     'leafletProviders': '../bower_modules/leaflet-providers/leaflet-providers',
-    'leafletControlFullScreen': '../bower_modules/leaflet-fullscreen/Control.FullScreen',
+    'leafletControlFullScreen': '../bower_modules/leaflet.fullscreen/Control.FullScreen',
     'leafletGoogleTiles': '../bower_modules/leaflet-plugins/layer/tile/Google',
     'leafletBingTiles': '../bower_modules/leaflet-plugins/layer/tile/Bing',
     'leafletMarkerCluster': '../bower_modules/leaflet.markercluster/dist/leaflet.markercluster',

@@ -473,6 +473,10 @@ fieldset {
 .leaflet-control-loading {
   background: url("/images/loading/loading7.gif");
 }
+.leaflet-popup-content em {
+  font-style: normal;
+  font-weight: bold;
+}
 .sib {
   background: #fc9540;
   height: 53px;

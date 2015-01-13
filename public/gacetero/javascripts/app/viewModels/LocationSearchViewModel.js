@@ -134,25 +134,27 @@ define(["jquery", "knockout", "underscore", "app/models/baseViewModel", "app/map
 			searchText = searchText.replace(/\//g,' '); // Replace slash to avoid URL error
 			$.getJSON("/gacetero/api/location/alloccurrences/"+searchText, function(allData) {
 				if(allData.hits.total > 0) {
+					var counter = 1;
 					$.each(allData.hits.hits, function(i, occurrence) {
-						var marker = new L.Marker([occurrence._source.location.lat, occurrence._source.location.lon], {icon: smallIcon, clickable: true, zIndexOffset: 1000, title: "Latitud: "+occurrence._source.location.lat+", Longitud: "+occurrence._source.location.lon});
-						marker.bindPopup("<strong>Departamento: </strong>"+occurrence._source.department_name+"</br><strong>Municipio: </strong>"+occurrence._source.county_name+"</br><strong>Localidad: </strong>"+occurrence._source.locality+((occurrence._source.paramo_name !== null) ? "</br><strong>Páramo: </strong>"+occurrence._source.paramo_name : "")+"</br><strong>País: </strong>"+occurrence._source.country_name+"</br><strong>Latitud: </strong>"+occurrence._source.location.lat+"</br><strong>Longitud: </strong>"+occurrence._source.location.lon);
-						markers.addLayer(marker);
+						if(counter == 1) {
+							principalLocation = new L.Marker([occurrence._source.location.lat, occurrence._source.location.lon], {icon: redMarker, clickable: true, zIndexOffset: 1000, title: "Latitud: "+occurrence._source.location.lat+", Longitud: "+occurrence._source.location.lon});
+							principalLocation.bindPopup("<strong>Departamento: </strong>"+((occurrence.highlight["department_name.spanish"] !== null) ? occurrence.highlight["department_name.spanish"] : occurrence._source.department_name)+"</br><strong>Municipio: </strong>"+((occurrence.highlight["county_name.spanish"] !== null) ? occurrence.highlight["county_name.spanish"] : occurrence._source.county_name)+"</br><strong>Localidad: </strong>"+((occurrence.highlight["locality.spanish"] !== null) ? occurrence.highlight["locality.spanish"] : occurrence._source.locality)+((occurrence._source.paramo_name !== null) ? "</br><strong>Páramo: </strong>"+((occurrence.highlight["paramo_name.spanish"] !== null) ? occurrence.highlight["paramo_name.spanish"] : occurrence._source.paramo_name) : "")+"</br><strong>País: </strong>"+((occurrence.highlight["country_name.spanish"] !== null) ? occurrence.highlight["country_name.spanish"] : occurrence._source.country_name)+"</br><strong>Latitud: </strong>"+occurrence._source.location.lat+"</br><strong>Longitud: </strong>"+occurrence._source.location.lon);
+							map.addLayer(principalLocation);
+							map.addLayer(markers);
+							self.principalCountry(occurrence._source.country_name);
+							self.principalDepartment(occurrence._source.department_name);
+							self.principalCounty(occurrence._source.county_name);
+							self.principalLocality(occurrence._source.locality);
+							self.principalLatitude(occurrence._source.location.lat);
+							self.principalLongitude(occurrence._source.location.lon);
+							counter+=1;
+						} else {
+							var marker = new L.Marker([occurrence._source.location.lat, occurrence._source.location.lon], {icon: smallIcon, clickable: true, zIndexOffset: 1000, title: "Latitud: "+occurrence._source.location.lat+", Longitud: "+occurrence._source.location.lon});
+							marker.bindPopup("<strong>Departamento: </strong>"+((occurrence.highlight["department_name.spanish"] !== null) ? occurrence.highlight["department_name.spanish"] : occurrence._source.department_name)+"</br><strong>Municipio: </strong>"+((occurrence.highlight["county_name.spanish"] !== null) ? occurrence.highlight["county_name.spanish"] : occurrence._source.county_name)+"</br><strong>Localidad: </strong>"+((occurrence.highlight["locality.spanish"] !== null) ? occurrence.highlight["locality.spanish"] : occurrence._source.locality)+((occurrence._source.paramo_name !== null) ? "</br><strong>Páramo: </strong>"+((occurrence.highlight["paramo_name.spanish"] !== null) ? occurrence.highlight["paramo_name.spanish"] : occurrence._source.paramo_name) : "")+"</br><strong>País: </strong>"+((occurrence.highlight["country_name.spanish"] !== null) ? occurrence.highlight["country_name.spanish"] : occurrence._source.country_name)+"</br><strong>Latitud: </strong>"+occurrence._source.location.lat+"</br><strong>Longitud: </strong>"+occurrence._source.location.lon);
+							markers.addLayer(marker);
+						}
 					});
-					if(allData.hits.hits[0]) {
-						occurrence = allData.hits.hits[0];
-						principalLocation = new L.Marker([occurrence._source.location.lat, occurrence._source.location.lon], {icon: redMarker, clickable: true, zIndexOffset: 1000, title: "Latitud: "+occurrence._source.location.lat+", Longitud: "+occurrence._source.location.lon});
-						principalLocation.bindPopup("<strong>Departamento: </strong>"+occurrence._source.department_name+"</br><strong>Municipio: </strong>"+occurrence._source.county_name+"</br><strong>Localidad: </strong>"+occurrence._source.locality+((occurrence._source.paramo_name !== null) ? "</br><strong>Páramo: </strong>"+occurrence._source.paramo_name : "")+"</br><strong>País: </strong>"+occurrence._source.country_name+"</br><strong>Latitud: </strong>"+occurrence._source.location.lat+"</br><strong>Longitud: </strong>"+occurrence._source.location.lon);
-						map.addLayer(principalLocation);
-						map.addLayer(markers);
-						self.principalCountry(occurrence._source.country_name);
-						self.principalDepartment(occurrence._source.department_name);
-						self.principalCounty(occurrence._source.county_name);
-						self.principalLocality(occurrence._source.locality);
-						self.principalLatitude(occurrence._source.location.lat);
-						self.principalLongitude(occurrence._source.location.lon);
-					}
-					if(markers._topClusterLevel._childCount == 10000 && allData.hits.total > 10000) {
+					if(allData.hits.total > 10000) {
 						$("#notes").fadeIn();
 					}
 					// Fill resume data about found occurrences

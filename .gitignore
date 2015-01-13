@@ -10,8 +10,8 @@ explorador.sublime-project
 explorador.sublime-workspace
 temp/
 logs/
-public/bower_modules
-public/components
+public/gcetero/bower_modules
+public/gacetero/components
 npm-debug.log
 
 pids
